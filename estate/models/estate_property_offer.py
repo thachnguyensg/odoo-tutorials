@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+from odoo.exceptions import UserError
 
 
 class EstatePropertyOffer(models.Model):
@@ -58,3 +59,13 @@ class EstatePropertyOffer(models.Model):
             record.property_id.selling_price = 0.0
             record.property_id.buyer_id = None
             record.property_id.state = "offer_received"
+
+    # Validation methods
+    @api.model
+    def create(self, values):
+        property = self.env["estate.property"].browse(values["property_id"])
+        mix_price = min(property.offer_ids.mapped("price"))
+        if "price" in values and values["price"] < mix_price:
+            raise UserError(f"The price offered ({values['price']}) is too low")
+        property.state = "offer_received"
+        return super().create(values)
