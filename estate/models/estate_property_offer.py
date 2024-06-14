@@ -64,8 +64,11 @@ class EstatePropertyOffer(models.Model):
     @api.model
     def create(self, values):
         property = self.env["estate.property"].browse(values["property_id"])
-        mix_price = min(property.offer_ids.mapped("price"))
-        if "price" in values and values["price"] < mix_price:
-            raise UserError(f"The price offered ({values['price']}) is too low")
+        if property.offer_ids:
+            max_price = max(property.offer_ids.mapped("price"))
+            if "price" in values and values["price"] < max_price:
+                raise UserError(
+                    f"The price offered must be higher than ({values['price']})"
+                )
         property.state = "offer_received"
         return super().create(values)
