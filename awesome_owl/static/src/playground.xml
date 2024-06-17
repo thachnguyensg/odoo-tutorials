@@ -1,9 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
     <t t-name="awesome_owl.playground">
         <div class="p-3">
             hello world
+        </div>
+        <div class="p-3">
+            Sum: <t t-esc="sum.value"/>
+        </div>
+        <Counter onChange="onCounterChange"/>
+        <Counter onChange="onCounterChange"/>
+        <div>
+            <t t-foreach="cards" t-as="card" t-key="card.title">
+                <Card title="card.title">
+                    <t t-out="card.content"/>
+                </Card>
+            </t>
+            <Card title="'TITLE'" >
+                <Counter onChange="onCounterChange"/>
+            </Card>
+        </div>
+        <div>
+            <TodoList />
         </div>
     </t>
 
