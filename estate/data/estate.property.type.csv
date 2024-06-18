@@ -1,0 +1,5 @@
+"id","name","sequence"
+type_01,"Residential",1
+type_02,"Commercial",2
+type_03,"Industrial",3
+type_04,"Land",4
