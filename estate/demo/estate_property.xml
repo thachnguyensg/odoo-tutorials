@@ -30,27 +30,33 @@
         <field name="facades">4</field>
         <field name="garage">False</field>
     </record>
-    <record id="demo_estate_03" model="estate.property">
-        <field name="name">Big Bad Villa</field>
-        <field name="property_type_id" ref="type_01" />
-        <field name="state">new</field>
-        <field name="description">A big and bad villa</field>
-        <field name="postcode">12346</field>
-        <field name="date_availability">2020-02-02</field>
-        <field name="expected_price">6660000</field>
-        <field name="bedrooms">6</field>
-        <field name="living_area">100</field>
-        <field name="facades">4</field>
-        <field name="garage">True</field>
-        <field name="garden">True</field>
-        <field name="garden_area">100000</field>
-        <field name="garden_orientation">south</field>
-        <field name="offer_ids"
-            eval="[
-            Command.create({
-                'partner_id': 1,
-                'price': 40000000,
-            }),
-            ]" />
-    </record>
+    <data noupdate="1">
+        <record id="demo_estate_03" model="estate.property">
+            <field name="name">Big Bad Villa</field>
+            <field name="property_type_id" ref="type_01" />
+            <field name="state">new</field>
+            <field name="description">A big and bad villa</field>
+            <field name="postcode">12346</field>
+            <field name="date_availability">2020-02-02</field>
+            <field name="expected_price">6660000</field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">100</field>
+            <field name="facades">4</field>
+            <field name="garage">True</field>
+            <field name="garden">True</field>
+            <field name="garden_area">100000</field>
+            <field name="garden_orientation">south</field>
+            <field name="offer_ids"
+                eval="[
+                Command.create({
+                    'partner_id': ref('base.res_partner_1'),
+                    'price': 4000000,
+                }),
+                Command.create({
+                    'partner_id': ref('base.res_partner_2'),
+                    'price': 40000000,
+                }),
+                ]" />
+        </record>
+    </data>
 </odoo>
