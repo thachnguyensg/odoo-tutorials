@@ -4,6 +4,7 @@
         <field name="name">Property Tags</field>
         <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form</field>
+        <field name="groups_id" eval="[Command.link(ref('estate_group_manager'))]" />
     </record>
 
     <record id="estate_property_tag_tree" model="ir.ui.view">
