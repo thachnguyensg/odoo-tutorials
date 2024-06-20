@@ -5,11 +5,13 @@ class EstateProperty(models.Model):
     _inherit = "estate.property"
 
     def action_sold(self):
-        print("I'm overriding the action_sold method")
-        print("partner_id", self.buyer_id)
+        self.env["account.journal"].check_access_rights("read")
         journal = self.env["account.journal"].sudo().search([("type", "=", "sale")], limit=1)
         # Another way to get the journal:
         # journal = self.env["account.move"].with_context(default_move_type="out_invoice")._get_default_journal()
+        # print(" reached ".center(100, '='))
+        self.env["account.move"].check_access_rights("create")
+        self.env["account.move"].check_access_rules("create")
         self.env["account.move"].sudo().create(
             {
                 "move_type": "out_invoice",
