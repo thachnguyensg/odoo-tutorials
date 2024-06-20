@@ -25,6 +25,7 @@ class EstateProperty(models.Model):
         return fields.Date.today() + relativedelta(months=3)
 
     name = fields.Char(required=True)
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.user.company_id)
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(copy=False, default=_default_availability)

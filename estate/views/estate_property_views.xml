@@ -186,7 +186,9 @@
                                         <field name="salesperson_id" />
                                         <field name="buyer_id" />
                                     </group>
-                                    <group></group>
+                                    <group>
+                                        <field name="company_id" />
+                                    </group>
                                 </group>
                             </page>
                         </notebook>
