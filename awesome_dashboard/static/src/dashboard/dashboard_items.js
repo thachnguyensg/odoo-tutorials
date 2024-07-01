@@ -2,6 +2,7 @@
 
 import { NumberCard } from "./number_card/number_card";
 import { PieChartCard } from "./pie_chart_card/pie_chart_card";
+import { registry } from "@web/core/registry";
 
 export const items = [
     {
@@ -50,7 +51,7 @@ export const items = [
         }),
     },
     {
-        id: "pie_chart",
+        id: "pie_chart1",
         description: "Shirt orders by size",
         Component: PieChartCard,
         size: 2,
@@ -60,3 +61,7 @@ export const items = [
         }),
     },
 ];
+
+items.forEach((item) => {
+    registry.category("dashboard_items").add(item.id, item);
+});
