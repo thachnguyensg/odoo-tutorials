@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @odoo-module **/
 
 import { registry } from "@web/core/registry";
 import { reactive } from "@odoo/owl";
@@ -12,6 +12,8 @@ const statisticsService = {
             Object.assign(statistic, upd, { isReady: true });
         }
         setInterval(loadData, 10000);
+        loadData();
+
         return statistic;
     },
 };
