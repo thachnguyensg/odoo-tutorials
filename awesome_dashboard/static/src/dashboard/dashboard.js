@@ -13,8 +13,8 @@ class AwesomeDashboard extends Component {
 
     setup() {
         this.action = useService("action");
-        const statisticService = useService("awesome_dashboard.statistics");
-        this.statistics = useState(statisticService);
+        const statisticsReactive = useService("awesome_dashboard.statistics");
+        this.statistics = useState(statisticsReactive);
         this.display = {
             controlPanel: {},
         };
@@ -36,4 +36,4 @@ class AwesomeDashboard extends Component {
     }
 }
 
-registry.category("actions").add("awesome_dashboard.dashboard", AwesomeDashboard);
+registry.category("lazy_components").add("AwesomeDashboard", AwesomeDashboard);
