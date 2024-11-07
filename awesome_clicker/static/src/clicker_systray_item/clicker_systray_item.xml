@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-name="awesome_clicker.ClickerSystrayItem" owl="1">
+        <div class="d-flex align-items-center gap-2">
+            <span class="fw-bold text-white">Clicks: <t t-esc="state.count"/></span>
+            <button class="btn btn-light" t-on-click="increment">
+                <i class="fa fa-plus"/>
+            </button>
+        </div>
+    </t>
+</template>
