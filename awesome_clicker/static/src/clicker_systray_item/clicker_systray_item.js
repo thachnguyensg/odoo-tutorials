@@ -1,16 +1,19 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
 import { Component, useState, useExternalListener } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
+import { useClicker } from "../clicker_hook";
 
 class ClickerSystrayItem extends Component {
     setup() {
-        this.state = useState({ count: 0 });
+        this.clicker = useClicker();
+        this.action = useService("action");
         useExternalListener(document.body, "click", this.handleBodyClick, { capture: true });
     }
 
     increment(e) {
         e.stopPropagation();
-        this.state.count += 10;
+        this.clicker.increment(10);
     }
 
     handleBodyClick(event) {
@@ -18,8 +21,16 @@ class ClickerSystrayItem extends Component {
         if (event.target.closest(".btn")) {
             return;
         }
+        this.clicker.increment(1);
+    }
 
-        this.state.count++;
+    openClicker() {
+        this.action.doAction({
+            type: "ir.actions.client",
+            tag: "awesome_clicker.ClickerClientAction",
+            target: "new",
+            name: "Clicker",
+        });
     }
 }
 
