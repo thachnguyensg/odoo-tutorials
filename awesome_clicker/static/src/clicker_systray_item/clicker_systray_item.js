@@ -3,8 +3,10 @@ import { registry } from "@web/core/registry";
 import { Component, useState, useExternalListener } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { useClicker } from "../clicker_hook";
+import { ClickerValue } from "../clicker_value/clicker_value";
 
 class ClickerSystrayItem extends Component {
+    static components = { ClickerValue };
     setup() {
         this.clicker = useClicker();
         this.action = useService("action");
@@ -13,7 +15,7 @@ class ClickerSystrayItem extends Component {
 
     increment(e) {
         e.stopPropagation();
-        this.clicker.increment(10);
+        this.clicker.increment(1000);
     }
 
     handleBodyClick(event) {
@@ -21,7 +23,7 @@ class ClickerSystrayItem extends Component {
         if (event.target.closest(".btn")) {
             return;
         }
-        this.clicker.increment(1);
+        this.clicker.increment(10);
     }
 
     openClicker() {
@@ -29,7 +31,7 @@ class ClickerSystrayItem extends Component {
             type: "ir.actions.client",
             tag: "awesome_clicker.ClickerClientAction",
             target: "new",
-            name: "Clicker",
+            name: "Clicker Game",
         });
     }
 }

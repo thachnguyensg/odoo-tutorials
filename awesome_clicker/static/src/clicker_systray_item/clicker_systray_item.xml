@@ -2,7 +2,7 @@
 <template xml:space="preserve">
     <t t-name="awesome_clicker.ClickerSystrayItem" owl="1">
         <div class="d-flex align-items-center gap-2">
-            <span class="fw-bold text-white">Clicks: <t t-esc="clicker.state.count"/></span>
+            <span class="fw-bold text-white">Clicks: <ClickerValue /></span>
             <button class="btn btn-light" t-on-click="increment">
                 <i class="fa fa-plus"/>
             </button>
