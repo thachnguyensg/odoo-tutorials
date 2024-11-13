@@ -10,5 +10,30 @@
                 Open
             </button>
         </div>
+        <div class="o_nav_entry">
+            <Dropdown>
+                <t t-set-slot="toggler">
+                    <ClickerValue/><i class="fa fa-mouse-pointer fa-fw"/>,
+                    <t t-esc="totalTree"/> <i class="fa fa-tree fa-fw"/>,
+                    <t t-esc="totalFruit"/> <i class="fa fa-apple fa-fw"/>
+                </t>
+                <DropdownItem>
+                    <button class="btn btn-secondary" t-on-click="openClicker">
+                        Open the clicker game
+                    </button>
+                </DropdownItem>
+                <DropdownItem>
+                    <button class="btn btn-secondary" t-on-click="() => clicker.buyBot('clickbot')">
+                        Buy a click bot
+                    </button>
+                </DropdownItem>
+                <DropdownItem t-foreach="clicker.trees" t-as="tree" t-key="tree">
+                    <t t-esc="tree_value.purchased"/>x <t t-esc="tree"/>
+                </DropdownItem>
+                <DropdownItem t-foreach="clicker.fruits" t-as="fruit" t-key="fruit">
+                    <t t-esc="fruit_value" />x <t t-esc="fruit" />
+                </DropdownItem>
+            </Dropdown>
+        </div>
     </t>
 </template>

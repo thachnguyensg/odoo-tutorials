@@ -4,9 +4,11 @@ import { Component, useState, useExternalListener } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { useClicker } from "../clicker_hook";
 import { ClickerValue } from "../clicker_value/clicker_value";
+import { Dropdown } from "@web/core/dropdown/dropdown";
+import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 
 class ClickerSystrayItem extends Component {
-    static components = { ClickerValue };
+    static components = { ClickerValue, Dropdown, DropdownItem };
     setup() {
         this.clicker = useClicker();
         this.action = useService("action");
@@ -33,6 +35,18 @@ class ClickerSystrayItem extends Component {
             target: "new",
             name: "Clicker Game",
         });
+    }
+
+    get totalTree() {
+        return Object.values(this.clicker.trees).reduce((acc, tree) => {
+            return acc + tree.purchased;
+        }, 0);
+    }
+
+    get totalFruit() {
+        return Object.values(this.clicker.fruits).reduce((acc, fruit) => {
+            return acc + fruit;
+        }, 0);
     }
 }
 
