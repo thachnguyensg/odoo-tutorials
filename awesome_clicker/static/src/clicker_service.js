@@ -1,13 +1,21 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
-import { reactive } from "@odoo/owl";
 import { ClickerModal } from "./clicker_modal";
-import { useService } from "@web/core/utils/hooks";
+import { browser } from "@web/core/browser/browser";
 
 const clickerState = {
     dependencies: ["action", "effect", "notification"],
     start(env, { action, effect, notification }) {
-        const clickerModel = new ClickerModal();
+        const localStorageState = JSON.parse(browser.localStorage.getItem("clickerState"));
+        const clickerModel = localStorageState
+            ? ClickerModal.fromJson(localStorageState)
+            : new ClickerModal();
+
+        setInterval(() => {
+            browser.localStorage.setItem("clickerState", JSON.stringify(clickerModel));
+        }, 10000);
+
+        console.log("clickerModel", clickerModel);
         const bus = clickerModel.bus;
         bus.addEventListener("MILESTONE", (ev) => {
             effect.add({

@@ -9,72 +9,74 @@
                 </button>
             </div>
         </div>
-
-        <t t-if="clicker.level >= 1 || clicker.hasBot()">
-            <h2>Bots</h2>
-            <div class="d-flex flex-row gap-2">
-                <t t-foreach="clicker.bots" t-as="bot" t-key="bot">
-                    <div class="card" t-if="bot_value.level lte clicker.level || bot_value.purchased > 0">
-                        <div class="card-header">
-                            <p><t t-esc="bot_value.purchased"/>x <t t-esc="bot"/> (<t t-esc="bot_value.increment * 1"/>/10s)</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-primary" t-att-disabled="clicker.clicks lt bot_value.price" t-on-click="()=> clicker.buyBot(bot)">
-                                Buy <t t-esc="bot"/> (<t t-esc="bot_value.price"/> / <t t-esc="clicker.clicks"/> clicks)
-                            </button>
-                        </div>
-                    </div>
-                </t>
-            </div>
-        </t>
-        
-        <t t-if="clicker.level >= 3">
-            <h2>Power Multiplier</h2>
-            <div class="d-flex flex-row gap-2">
-                <div class="card">
-                    <div class="card-header">
-                        <p><t t-esc="clicker.multiplier"/>x</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary" t-att-disabled="clicker.clicks lt clicker.getMultiplierPrice()" t-on-click="()=> clicker.buyMultiplier()">
-                            Buy multiplier (<t t-esc="clicker.getMultiplierPrice()"/> / <t t-esc="clicker.clicks"/> clicks)
-                        </button>
+        <Notebook>
+            <t t-set-slot="clicks" title="'Clicks'" isVisible="clicker.level >= 1">
+                <div class="ms-1 mt-1">
+                    <h2>Bots</h2>
+                    <div class="d-flex flex-row gap-2">
+                        <t t-foreach="clicker.bots" t-as="bot" t-key="bot">
+                            <div class="card" t-if="bot_value.level lte clicker.level || bot_value.purchased > 0">
+                                <div class="card-header">
+                                    <p><t t-esc="bot_value.purchased"/>x <t t-esc="bot"/> (<t t-esc="bot_value.increment * 1"/>/10s)</p>
+                                </div>
+                                <div class="card-body">
+                                    <button class="btn btn-primary" t-att-disabled="clicker.clicks lt bot_value.price" t-on-click="()=> clicker.buyBot(bot)">
+                                        Buy <t t-esc="bot"/> (<t t-esc="bot_value.price"/> / <t t-esc="clicker.clicks"/> clicks)
+                                    </button>
+                                </div>
+                            </div>
+                        </t>
                     </div>
                 </div>
-            </div>
-        </t>
-
-        <t t-if="clicker.level >= 4">
-            <h2>Trees</h2>
-            <div class="d-flex flex-row gap-2">
-                <t t-foreach="clicker.trees" t-as="tree" t-key="tree">
-                    <div class="card" t-if="tree_value.level lte clicker.level">
-                        <div class="card-header">
-                            <p><t t-esc="tree_value.purchased"/>x <t t-esc="tree"/> (x1 <t t-esc="tree_value.produce"/>/10s)</p>
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-primary" t-att-disabled="clicker.clicks lt tree_value.price" t-on-click="()=> clicker.buyTree(tree)">
-                                Buy <t t-esc="tree"/> (<t t-esc="tree_value.price"/> / <t t-esc="clicker.clicks"/> clicks)
-                            </button>
+                
+                <div t-if="clicker.level >= 3" class="ms-1 mt-1">
+                    <h2>Power Multiplier</h2>
+                    <div class="d-flex flex-row gap-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <p><t t-esc="clicker.multiplier"/>x</p>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-primary" t-att-disabled="clicker.clicks lt clicker.getMultiplierPrice()" t-on-click="()=> clicker.buyMultiplier()">
+                                    Buy multiplier (<t t-esc="clicker.getMultiplierPrice()"/> / <t t-esc="clicker.clicks"/> clicks)
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </t>
-            </div>
-        </t>
-
-        <t t-if="clicker.hasTree()">
-            <h2>Fruits</h2>
-            <div class="d-flex flex-row gap-2">
-                <t t-foreach="clicker.fruits" t-as="fruit" t-key="fruit">
-                    <div class="card" t-if="fruit_value gt 0">
-                        <div class="card-header">
-                            <p><t t-esc="fruit_value"/>x <t t-esc="fruit"/></p>
-                        </div>
-                        <div class="card-body">
-                        </div>
+                </div>
+            </t>
+    
+            <t t-set-slot="trees" title="'Trees and Fruits'" isVisible="clicker.level >= 4">
+                <div class="ms-1 mt-1">
+                    <h2>Trees</h2>
+                    <div class="d-flex flex-row gap-2">
+                        <t t-foreach="clicker.trees" t-as="tree" t-key="tree">
+                            <div class="card" t-if="tree_value.level lte clicker.level">
+                                <div class="card-header">
+                                    <p><t t-esc="tree_value.purchased"/>x <t t-esc="tree"/> (x1 <t t-esc="tree_value.produce"/>/10s)</p>
+                                </div>
+                                <div class="card-body">
+                                    <button class="btn btn-primary" t-att-disabled="clicker.clicks lt tree_value.price" t-on-click="()=> clicker.buyTree(tree)">
+                                        Buy <t t-esc="tree"/> (<t t-esc="tree_value.price"/> / <t t-esc="clicker.clicks"/> clicks)
+                                    </button>
+                                </div>
+                            </div>
+                        </t>
                     </div>
-                </t>
-            </div>
-        </t>
+                </div>
+                <div t-if="clicker.hasTree()" class="ms-1 mt-1">
+                    <h2>Fruits</h2>
+                    <div class="d-flex flex-row gap-2">
+                        <t t-foreach="clicker.fruits" t-as="fruit" t-key="fruit">
+                            <div class="card" t-if="fruit_value gt 0">
+                                <div class="card-header">
+                                    <p><t t-esc="fruit_value"/>x <t t-esc="fruit"/></p>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </Notebook>
     </t>
 </template>

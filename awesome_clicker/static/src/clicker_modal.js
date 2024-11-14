@@ -62,6 +62,16 @@ export class ClickerModal extends Reactive {
         }, 30000);
     }
 
+    toJSON() {
+        const json = Object.assign({}, this);
+        delete json["bus"];
+        return json;
+    }
+
+    static fromJson(json) {
+        return Object.assign(new ClickerModal(), json);
+    }
+
     get getMilestone() {
         return [
             { clicks: 1000, unlock: "clickbots" },
