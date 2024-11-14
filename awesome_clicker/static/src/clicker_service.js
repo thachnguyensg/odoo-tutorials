@@ -2,11 +2,12 @@
 import { registry } from "@web/core/registry";
 import { ClickerModal } from "./clicker_modal";
 import { browser } from "@web/core/browser/browser";
+import { migrate } from "./clicker_migration";
 
 const clickerState = {
     dependencies: ["action", "effect", "notification"],
     start(env, { action, effect, notification }) {
-        const localStorageState = JSON.parse(browser.localStorage.getItem("clickerState"));
+        const localStorageState = migrate(JSON.parse(browser.localStorage.getItem("clickerState")));
         const clickerModel = localStorageState
             ? ClickerModal.fromJson(localStorageState)
             : new ClickerModal();
