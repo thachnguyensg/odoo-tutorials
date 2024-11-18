@@ -2,7 +2,7 @@
 <template xml:space="preserve">
     <t t-name="awesome_gallery.GalleryImage">
         <div class="card w-100 mb-4">
-            <img t-if="props.record[props.model.imageField]" loading="lazy" t-att-src="imageUrl" />
+            <img t-if="props.record[props.model.imageField]" loading="lazy" t-att-src="imageUrl" t-on-click="() => this.onImageClick(props.record.id)" />
         </div>
     </t>
 </template>
