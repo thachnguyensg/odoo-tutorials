@@ -1,11 +1,14 @@
 /** @odoo-module **/
 export class GalleryArchParser {
     parse(xmlDoc) {
+        console.log("xmlDoc", xmlDoc);
         const imageField = xmlDoc.getAttribute("image_field");
-        console.log("imageField", imageField);
-        console.log("typeof imageField", typeof imageField);
+        const limit = xmlDoc.getAttribute("limit") || 80;
+        const tooltipField = xmlDoc.getAttribute("tooltip_field");
         return {
             imageField,
+            limit,
+            tooltipField,
         };
     }
 }
